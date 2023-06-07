@@ -3,7 +3,8 @@ def iniciar_tradutor(string):
     string = remover_limitadores_e_outros(string)
     string = adicionar_parenteses_print(string)
     string = manipular_declaracao(string)
-    # print(string)
+    print(string)
+    print("----------------- Executando o Código -----------------")
     exec(string)
 
 
