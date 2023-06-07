@@ -40,15 +40,15 @@ def ler_arquivo(teste):
 
 
 def iniciar_analisador(programa):
-    aaaa = programa
+    auxiliar = programa
     programa = adicionar_espacos_delimitadores(programa)
     programa = adicionar_espacos_operadores(programa)
     print(programa)
     print("\n----------------------------------------------------\n")
-    iniciar_tradutor(aaaa)
-    #tokens = tokenize(programa)
-    #print(tokens)
-    #parse(tokens)
+    tokens = tokenize(programa)
+    print(tokens)
+    parse(tokens)
+    iniciar_tradutor(auxiliar)
 
 
 def tokenize(programa):

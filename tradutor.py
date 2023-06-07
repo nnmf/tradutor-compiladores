@@ -3,7 +3,7 @@ def iniciar_tradutor(string):
     string = remover_limitadores_e_outros(string)
     string = adicionar_parenteses_print(string)
     string = manipular_declaracao(string)
-    print(string)
+    # print(string)
     exec(string)
 
 
@@ -45,7 +45,7 @@ def remover_limitadores_e_outros(string):
         if dentro_aspas:
             nova_string += string[i]
         else:
-            if string[i:i+2] == '} ':
+            if string[i:i + 2] == '} ':
                 i += 2
                 continue
             if string[i] == ';' or string[i] == '{' or string[i] == '}':
@@ -55,11 +55,11 @@ def remover_limitadores_e_outros(string):
                 nova_string += "not "
                 i += 1
                 continue
-            if string[i:i+4] == 'true':
+            if string[i:i + 4] == 'true':
                 nova_string += 'True'
                 i += 4
                 continue
-            if string[i:i+5] == 'false':
+            if string[i:i + 5] == 'false':
                 nova_string += 'False'
                 i += 4
                 continue
@@ -67,7 +67,6 @@ def remover_limitadores_e_outros(string):
         i += 1
 
     return nova_string
-
 
 
 def adicionar_parenteses_print(string):

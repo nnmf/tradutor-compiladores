@@ -238,4 +238,4 @@ def parse(tokens):
         sys.exit()
     else:
         print(tokens)
-        print("\n----------------- Análise Sintática Concluída com Sucesso -----------------")
+        print("\n----------------- Análise Sintática Concluída com Sucesso, Iniciando o código -----------------\n")
