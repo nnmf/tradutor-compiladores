@@ -2,7 +2,7 @@ aux = []
 indentation = ""
 
 
-def iniciar_tradutor(auxiliar, string):
+def iniciar_tradutor(string):
     global aux
 
     def decision():
@@ -23,7 +23,7 @@ def iniciar_tradutor(auxiliar, string):
     def escrever_print():
         global aux
         with open("./testes/programa.py", "a") as arquivo:
-            arquivo.write(auxiliar)
+            arquivo.write("")
             if string == ";":
                 arquivo.write(")\n")
                 aux.pop()
@@ -35,7 +35,7 @@ def iniciar_tradutor(auxiliar, string):
     def escrever_fun():
         global aux, indentation
         with open("./testes/programa.py", "a") as arquivo:
-            arquivo.write(auxiliar)
+            arquivo.write("")
             if string == "}":
                 arquivo.write("\n")
                 indentation = indentation[: -1]
@@ -57,7 +57,7 @@ def iniciar_tradutor(auxiliar, string):
     def escrever_var():
         global aux
         with open("./testes/programa.py", "a") as arquivo:
-            arquivo.write(auxiliar)
+            arquivo.write("")
             if string == ";":
                 arquivo.write("\n")
                 aux.pop()
@@ -69,7 +69,7 @@ def iniciar_tradutor(auxiliar, string):
     def escrever_while():
         global aux, indentation
         with open("./testes/programa.py", "a") as arquivo:
-            arquivo.write(auxiliar)
+            arquivo.write("")
             if string == "}":
                 arquivo.write("\n")
                 indentation = indentation[: -1]
@@ -89,7 +89,7 @@ def iniciar_tradutor(auxiliar, string):
     def escrever_if():
         global aux, indentation
         with open("./testes/programa.py", "a") as arquivo:
-            arquivo.write(auxiliar)
+            arquivo.write("")
             if string == "}":
                 arquivo.write("\n")
                 indentation = indentation[: -1]
@@ -109,7 +109,7 @@ def iniciar_tradutor(auxiliar, string):
     def escrever_programa():
         global aux, indentation
         with open("./testes/programa.py", "a") as arquivo:
-            arquivo.write(auxiliar)
+            arquivo.write("")
             if string == "}":
                 arquivo.write("\n")
                 indentation = indentation[: -1]
