@@ -1,139 +1,164 @@
-def iniciar_tradutor(string):
-    # string = tabular_conteudo(string)
-    string = remover_limitadores_e_outros(string)
-    string = adicionar_parenteses_print(string)
-    string = manipular_declaracao(string)
-    print(string)
+aux = []
+indentation = ""
+
+
+def iniciar_tradutor(auxiliar, string):
+    global aux
+
+    def decision():
+        print("topo da lista auxiliar do tradutor: " + aux[-1])
+        if aux[-1] == "print":
+            escrever_print()
+        elif aux[-1] == "fun":
+            escrever_fun()
+        elif aux[-1] == "var":
+            escrever_var()
+        elif aux[-1] == "while":
+            escrever_while()
+        elif aux[-1] == "if":
+            escrever_if()
+        else:
+            escrever_programa()
+
+    def escrever_print():
+        global aux
+        with open("./testes/programa.py", "a") as arquivo:
+            arquivo.write(auxiliar)
+            if string == ";":
+                arquivo.write(")\n")
+                aux.pop()
+            elif string == "print":
+                arquivo.write(indentation + string + "(")
+            else:
+                escrever_programa()
+
+    def escrever_fun():
+        global aux, indentation
+        with open("./testes/programa.py", "a") as arquivo:
+            arquivo.write(auxiliar)
+            if string == "}":
+                arquivo.write("\n")
+                indentation = indentation[: -1]
+                aux.pop()
+            elif string == "{":
+                arquivo.write(":" + "\n")
+                indentation = indentation + " "
+            elif string == "(":
+                arquivo.write("(")
+            elif string == ")":
+                arquivo.write(")")
+            elif string == ";":
+                arquivo.write("\n")
+            elif string == "fun":
+                arquivo.write("def ")
+            else:
+                escrever_programa()
+
+    def escrever_var():
+        global aux
+        with open("./testes/programa.py", "a") as arquivo:
+            arquivo.write(auxiliar)
+            if string == ";":
+                arquivo.write("\n")
+                aux.pop()
+            elif string == "var":
+                arquivo.write(indentation + "")
+            else:
+                escrever_programa()
+
+    def escrever_while():
+        global aux, indentation
+        with open("./testes/programa.py", "a") as arquivo:
+            arquivo.write(auxiliar)
+            if string == "}":
+                arquivo.write("\n")
+                indentation = indentation[: -1]
+                aux.pop()
+            elif string == "{":
+                arquivo.write(":" + "\n")
+                indentation = indentation + " "
+            elif string == "(":
+                arquivo.write(" ")
+            elif string == ")":
+                arquivo.write("")
+            elif string == ";":
+                arquivo.write("\n")
+            else:
+                escrever_programa()
+
+    def escrever_if():
+        global aux, indentation
+        with open("./testes/programa.py", "a") as arquivo:
+            arquivo.write(auxiliar)
+            if string == "}":
+                arquivo.write("\n")
+                indentation = indentation[: -1]
+                aux.pop()
+            elif string == "{":
+                arquivo.write(":" + "\n")
+                indentation = indentation + " "
+            elif string == "(":
+                arquivo.write(" ")
+            elif string == ")":
+                arquivo.write("")
+            elif string == ";":
+                arquivo.write("\n")
+            else:
+                escrever_programa()
+
+    def escrever_programa():
+        global aux, indentation
+        with open("./testes/programa.py", "a") as arquivo:
+            arquivo.write(auxiliar)
+            if string == "}":
+                arquivo.write("\n")
+                indentation = indentation[: -1]
+                aux.pop()
+            elif string == "{":
+                arquivo.write(":" + "\n")
+                indentation = indentation + " "
+            elif string == "(":
+                arquivo.write("(")
+            elif string == ")":
+                arquivo.write(")")
+            elif string == ";":
+                arquivo.write("\n")
+            elif string == "!":
+                arquivo.write("not")
+            elif string == "true":
+                arquivo.write("True")
+            elif string == "false":
+                arquivo.write("False")
+            else:
+                arquivo.write(indentation + string + " ")
+
+    def check():
+        if string == "print":
+            aux.append(string)
+        elif string == "fun":
+            aux.append(string)
+        elif string == "var":
+            aux.append(string)
+        elif string == "while":
+            aux.append(string)
+        elif string == "if":
+            aux.append(string)
+
+    check()
+
+    if aux:
+        decision()
+    else:
+        aux.append(string)
+        decision()
+
+
+def ler_programa():
+    print(open("./testes/programa.py", "r").read())
     print("----------------- Executando o Código -----------------")
-    exec(string)
+    exec(open("./testes/programa.py", 'r').read())
 
 
-def tabular_conteudo(string):
-    linhas = string.split('\n')  # Divide o texto em linhas
-    resultado = []  # Lista para armazenar as linhas tabuladas
-
-    nivel_tabulacao = 0  # Contador de nível de tabulação
-
-    for linha in linhas:
-        linha = linha.strip()  # Remove espaços em branco no início e no final da linha
-
-        if linha.startswith('}') and nivel_tabulacao > 0:
-            nivel_tabulacao -= 1  # Diminui o nível de tabulação
-
-        resultado.append('\t' * nivel_tabulacao + linha)  # Adiciona a linha atual com tabulação
-
-        if linha.endswith('{'):
-            nivel_tabulacao += 1  # Aumenta o nível de tabulação
-
-    resultado_final = '\n'.join(resultado)  # Une as linhas tabuladas em uma única string
-    return resultado_final
-
-
-def manipular_declaracao(string):
-    nova_string = string.replace("var ", "")
-    # nova_string = nova_string.replace("fun ", "")
-    return nova_string
-
-
-def remover_limitadores_e_outros(string):
-    nova_string = ""
-    i = 0
-    dentro_aspas = False
-
-    while i < len(string):
-        if string[i] == '"':
-            dentro_aspas = not dentro_aspas
-        if dentro_aspas:
-            nova_string += string[i]
-        else:
-            if string[i:i + 2] == '} ':
-                i += 2
-                continue
-            if string[i] == ';' or string[i] == '{' or string[i] == '}':
-                i += 1
-                continue
-            if string[i] == '!':
-                nova_string += "not "
-                i += 1
-                continue
-            if string[i:i + 4] == 'true':
-                nova_string += 'True'
-                i += 4
-                continue
-            if string[i:i + 5] == 'false':
-                nova_string += 'False'
-                i += 4
-                continue
-            nova_string += string[i]
-        i += 1
-
-    return nova_string
-
-
-def adicionar_parenteses_print(string):
-    linhas = string.split('\n')  # Divide o texto em linhas
-    resultado = []  # Lista para armazenar as linhas modificadas
-
-    for linha in linhas:
-        if "print " in linha:
-            linha_modificada = linha.replace("print",
-                                             "print(") + ")"  # Adiciona parênteses após "print" e no final da linha
-            resultado.append(linha_modificada)
-        elif "while " in linha:
-            linha_modificada = linha.replace("while",
-                                             "while") + ":"
-            resultado.append(linha_modificada)
-        elif "fun " in linha:
-            linha_modificada = linha.replace("fun",
-                                             "def") + ":"
-            resultado.append(linha_modificada)
-        elif "if " and "if(" in linha:
-            linha_modificada = linha.replace("if",
-                                             "if ") + ":"
-            resultado.append(linha_modificada)
-        elif "else " in linha:
-            linha_modificada = linha.replace("else",
-                                             "else") + ":"
-            resultado.append(linha_modificada)
-        # elif "if " in linha:
-        else:
-            resultado.append(linha)
-
-    resultado_final = '\n'.join(resultado)  # Une as linhas modificadas em uma única string
-    return resultado_final
-
-
-'''
-def tabular_conteudo(string):
-    linhas = string.split('\n')  # Divide o texto em linhas
-    resultado = []  # Lista para armazenar as linhas tabuladas
-
-    nivel_tabulacao = 0  # Contador de nível de tabulação
-
-    for linha in linhas:
-        if '{' in linha:
-            resultado.append('\t' * nivel_tabulacao + linha)  # Adiciona a linha atual com tabulação
-            nivel_tabulacao += 1  # Aumenta o nível de tabulação
-        elif '}' in linha:
-            nivel_tabulacao -= 1  # Diminui o nível de tabulação
-            resultado.append('\t' * nivel_tabulacao + linha)  # Adiciona a linha atual com tabulação
-        else:
-            resultado.append('\t' * nivel_tabulacao + linha)  # Adiciona a linha atual com tabulação
-
-    resultado_final = '\n'.join(resultado)  # Une as linhas tabuladas em uma única string
-    return resultado_final
-
-
-
-def remover_limitadores_e_outros(string):
-    nova_string = string.replace(";", "")
-    nova_string = nova_string.replace("{ ", "")
-    nova_string = nova_string.replace("} ", "")
-    nova_string = nova_string.replace("{", "")
-    nova_string = nova_string.replace("}", "")
-    nova_string = nova_string.replace("!", "not ")
-    nova_string = nova_string.replace("true", "True")
-    nova_string = nova_string.replace("false", "False")
-    return nova_string
-
-'''
+def apagar_txt(op):
+    with open(op, 'w') as arquivo:
+        arquivo.truncate()

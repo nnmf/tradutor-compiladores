@@ -1,7 +1,7 @@
 from lexico import *
 from sintatico import *
 import re
-from tradutor import iniciar_tradutor
+from tradutor import *
 
 
 def ler_arquivo(teste):
@@ -40,6 +40,7 @@ def ler_arquivo(teste):
 
 
 def iniciar_analisador(programa):
+    apagar_txt("./testes/programa.py")
     auxiliar = programa
     programa = adicionar_espacos_delimitadores(programa)
     programa = adicionar_espacos_operadores(programa)
@@ -48,7 +49,7 @@ def iniciar_analisador(programa):
     tokens = tokenize(programa)
     print(tokens)
     parse(tokens)
-    iniciar_tradutor(auxiliar)
+    #iniciar_tradutor(auxiliar)
 
 
 def tokenize(programa):
