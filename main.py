@@ -11,13 +11,6 @@ def main():
     iniciar_analisador(programa)
 
 
-def executar_codigo_arquivo(nome_arquivo):
-    with open(nome_arquivo, 'r') as arquivo:
-        codigo = arquivo.read()
-        exec(codigo)
-
-
 if __name__ == "__main__":
     print("----------------- Análise Iniciada -----------------\n")
-    #executar_codigo_arquivo('./testes/codigo.txt')
     main()

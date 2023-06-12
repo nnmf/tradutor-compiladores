@@ -1,7 +1,5 @@
-from lexico import *
 from sintatico import *
 import re
-from tradutor import *
 
 
 def ler_arquivo(teste):
