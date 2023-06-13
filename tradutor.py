@@ -1,3 +1,4 @@
+
 aux = []
 indentation = ""
 
@@ -6,7 +7,7 @@ def iniciar_tradutor(string):
     global aux, indentation
 
     def decision():
-        #print("topo da lista auxiliar do tradutor: " + aux[-1])
+        print("topo da lista auxiliar do tradutor: " + aux[-1])
         if aux[-1] == "print":
             escrever_print()
         elif aux[-1] == "fun":

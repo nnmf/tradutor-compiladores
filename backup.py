@@ -104,38 +104,3 @@ def adicionar_parenteses_print(string):
     resultado_final = '\n'.join(resultado)  # Une as linhas modificadas em uma única string
     return resultado_final
 
-
-'''
-def tabular_conteudo(string):
-    linhas = string.split('\n')  # Divide o texto em linhas
-    resultado = []  # Lista para armazenar as linhas tabuladas
-
-    nivel_tabulacao = 0  # Contador de nível de tabulação
-
-    for linha in linhas:
-        if '{' in linha:
-            resultado.append('\t' * nivel_tabulacao + linha)  # Adiciona a linha atual com tabulação
-            nivel_tabulacao += 1  # Aumenta o nível de tabulação
-        elif '}' in linha:
-            nivel_tabulacao -= 1  # Diminui o nível de tabulação
-            resultado.append('\t' * nivel_tabulacao + linha)  # Adiciona a linha atual com tabulação
-        else:
-            resultado.append('\t' * nivel_tabulacao + linha)  # Adiciona a linha atual com tabulação
-
-    resultado_final = '\n'.join(resultado)  # Une as linhas tabuladas em uma única string
-    return resultado_final
-
-
-
-def remover_limitadores_e_outros(string):
-    nova_string = string.replace(";", "")
-    nova_string = nova_string.replace("{ ", "")
-    nova_string = nova_string.replace("} ", "")
-    nova_string = nova_string.replace("{", "")
-    nova_string = nova_string.replace("}", "")
-    nova_string = nova_string.replace("!", "not ")
-    nova_string = nova_string.replace("true", "True")
-    nova_string = nova_string.replace("false", "False")
-    return nova_string
-
-'''
