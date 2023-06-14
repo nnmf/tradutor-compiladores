@@ -1,3 +1,162 @@
+import sys
+
+aux = []
+indentation = ""
+traducao = ""
+
+
+def iniciar_tradutor(string):
+    global aux, indentation, traducao
+
+    def decision():
+        print("topo da lista auxiliar do tradutor: " + aux[-1])
+        if aux[-1] == "print":
+            escrever_print()
+        elif aux[-1] == "fun":
+            escrever_fun()
+        elif aux[-1] == "var":
+            escrever_var()
+        elif aux[-1] == "while":
+            escrever_while()
+        elif aux[-1] == "if" or aux[-1] == "else":
+            escrever_if_else()
+        else:
+            escrever_programa()
+
+    def escrever_print():
+        global aux, traducao
+        if string == ";":
+            traducao = traducao + ")\n"
+            aux.pop()
+        elif string == "print":
+            traducao = traducao + indentation + string + "("
+        else:
+            escrever_programa()
+
+    def escrever_fun():
+        global aux, indentation, traducao
+        if string == "}":
+            traducao = traducao + "\n"
+            indentation = indentation[: -1]
+            aux.pop()
+        elif string == "{":
+            traducao = traducao + ":" + "\n"
+            indentation = indentation + " "
+        elif string == "(":
+            traducao = traducao + "("
+        elif string == ")":
+            traducao = traducao + ")"
+        elif string == ";":
+            traducao = traducao + "\n"
+        elif string == "fun":
+            traducao = traducao + "def "
+        else:
+            escrever_programa()
+
+    def escrever_var():
+        global aux, traducao
+        if string == ";":
+            traducao = traducao + "\n"
+            aux.pop()
+        elif string == "var":
+            traducao = traducao + indentation + ""
+        else:
+            escrever_programa()
+
+    def escrever_while():
+        global aux, indentation, traducao
+        if string == "}":
+            traducao = traducao + "\n"
+            indentation = indentation[: -1]
+            aux.pop()
+        elif string == "{":
+            traducao = traducao + ":" + "\n"
+            indentation = indentation + " "
+        elif string == "(":
+            traducao = traducao + " "
+        elif string == ")":
+            traducao = traducao + ""
+        elif string == ";":
+            traducao = traducao + "\n"
+        else:
+            escrever_programa()
+
+    def escrever_if_else():
+        global aux, indentation, traducao
+        if string == "if":
+            traducao = traducao + indentation + string + " "
+        elif string == "else":
+            traducao = traducao + indentation + string + " "
+        elif string == "}":
+            traducao = traducao + "\n"
+            indentation = indentation[: -1]
+            aux.pop()
+        elif string == "{":
+            traducao = traducao + ":" + "\n"
+            indentation = indentation + " "
+        elif string == "(":
+            traducao = traducao + " "
+        elif string == ")":
+            traducao = traducao + ""
+        elif string == ";":
+            traducao = traducao + "\n"
+        else:
+            escrever_programa()
+
+    def escrever_programa():
+        global aux, indentation, traducao
+        if string == "}":
+            print(f"--- SemanticError: Unexpected token '{string}'. ---")
+            sys.exit()
+        elif string == "{":
+            print(f"--- SemanticError: Unexpected token '{string}'. ---")
+            sys.exit()
+        elif string == "(":
+            traducao = traducao + "("
+        elif string == ")":
+            traducao = traducao + ")"
+        elif string == ";":
+            traducao = traducao + "\n"
+        elif string == "!":
+            traducao = traducao + "not"
+        elif string == "true":
+            traducao = traducao + "True"
+        elif string == "false":
+            traducao = traducao + "False"
+        else:
+            traducao = traducao + indentation + string + " "
+
+    def check():
+        if string == "print":
+            aux.append(string)
+        elif string == "fun":
+            aux.append(string)
+        elif string == "var":
+            aux.append(string)
+        elif string == "while":
+            aux.append(string)
+        elif string == "if" or string == "else":
+            aux.append(string)
+
+    check()
+
+    if aux:
+        decision()
+    else:
+        aux.append(string)
+        decision()
+
+
+def ler_programa():
+    global traducao
+    print(traducao)
+    print("----------------- Executando o Código -----------------")
+    exec(traducao)
+
+
+
+
+'''
 
 aux = []
 indentation = ""
@@ -163,3 +322,6 @@ def ler_programa():
 def apagar_txt(op):
     with open(op, 'w') as arquivo:
         arquivo.truncate()
+
+
+'''

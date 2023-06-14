@@ -38,7 +38,7 @@ def ler_arquivo(teste):
 
 
 def iniciar_analisador(programa):
-    apagar_txt("./testes/programa.py")
+    #apagar_txt("./testes/programa.py")
     auxiliar = programa
     programa = adicionar_espacos_delimitadores(programa)
     programa = adicionar_espacos_operadores(programa)
