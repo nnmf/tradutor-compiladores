@@ -123,6 +123,8 @@ def iniciar_tradutor(string):
             traducao = traducao + "True"
         elif string == "false":
             traducao = traducao + "False"
+        elif string == "nil":
+            traducao = traducao + "None"
         else:
             traducao = traducao + indentation + string + " "
 
